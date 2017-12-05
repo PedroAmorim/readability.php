@@ -53,6 +53,13 @@ class Configuration
     protected $originalURL = 'http://fakehost';
 
     /**
+     * Custom regexps to check the node usability.
+     *
+     * @var string
+     */
+    protected $customRegexpsUnlikelyCandidates = false;
+
+    /**
      * @return int
      */
     public function getMaxTopCandidates()
@@ -296,4 +303,24 @@ class Configuration
      * @var bool
      */
     protected $summonCthulhu = false;
+
+    /**
+     * @return int
+     */
+    public function getCustomUnlikelyCandidates()
+    {
+        return $this->customRegexpsUnlikelyCandidates;
+    }
+
+    /**
+     * @param string $customRegexps
+     *
+     * @return $this
+     */
+    public function setCustomUnlikelyCandidates($customRegexps)
+    {
+        $this->customRegexpsUnlikelyCandidates = $customRegexps;
+
+        return $this;
+    }
 }

@@ -513,6 +513,11 @@ class Readability
 
         $elementsToScore = [];
 
+        $unlikelyCandidates = NodeUtility::$regexps['unlikelyCandidates'];
+        if ($customUnlikelyCandidates = $this->configuration->getCustomUnlikelyCandidates()) {
+            $unlikelyCandidates = $customUnlikelyCandidates;
+        }
+
         /*
          * First, node prepping. Trash nodes that look cruddy (like ones with the
          * class name "comment", etc), and turn divs into P tags where they have been
@@ -537,7 +542,7 @@ class Readability
             // Remove unlikely candidates
             if ($stripUnlikelyCandidates) {
                 if (
-                    preg_match(NodeUtility::$regexps['unlikelyCandidates'], $matchString) &&
+                    preg_match($unlikelyCandidates, $matchString) &&
                     !preg_match(NodeUtility::$regexps['okMaybeItsACandidate'], $matchString) &&
                     $node->nodeName !== 'body' &&
                     $node->nodeName !== 'a'
